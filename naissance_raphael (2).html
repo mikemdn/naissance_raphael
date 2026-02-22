@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍀 Bienvenue Raphaël</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:      #7BB8D4;
+    --blue-lt:   #E0F2FC;
+    --blue-dk:   #2D7FA8;
+    --mint:      #82C9A5;
+    --mint-lt:   #D6F0E4;
+    --mint-dk:   #2E9966;
+    --sky:       #B5DFF0;
+    --sky-lt:    #EBF7FD;
+    --sage:      #A8C9B0;
+    --sage-lt:   #E4F2E8;
+    --teal:      #5BB8B0;
+    --teal-lt:   #D6F0EE;
+    --yellow:    #F5D98A;
+    --yellow-lt: #FDF5DA;
+    --cream:     #F4FBFF;
+    --text:      #1A3A4A;
+    --text-lt:   #4A7080;
+    --gold:      #E8A020;
+    --white:     #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 12% 10%, #D6F0E4 0%, transparent 40%),
+      radial-gradient(circle at 88% 8%,  #E0F2FC 0%, transparent 35%),
+      radial-gradient(circle at 4%  76%, #EBF7FD 0%, transparent 30%),
+      radial-gradient(circle at 92% 80%, #D6F0EE 0%, transparent 35%),
+      radial-gradient(circle at 50% 50%, #F4FBFF 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .floater { position:fixed; border-radius:50%; opacity:0.14; animation:float 9s ease-in-out infinite; pointer-events:none; z-index:0; }
+  .floater:nth-child(1) { width:200px;height:200px;background:var(--mint);top:-60px;left:-70px;animation-delay:0s; }
+  .floater:nth-child(2) { width:130px;height:130px;background:var(--blue);top:10px;right:-40px;animation-delay:2.5s; }
+  .floater:nth-child(3) { width:100px;height:100px;background:var(--teal);bottom:32%;left:-30px;animation-delay:4s; }
+  .floater:nth-child(4) { width:160px;height:160px;background:var(--sky);bottom:-50px;right:-60px;animation-delay:1.5s; }
+  @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-22px) rotate(6deg)} }
+
+  /* HERO */
+  .hero { text-align:center; padding:60px 20px 50px; position:relative; }
+  .hero-badge {
+    display:inline-block; background:var(--blue-dk); color:white;
+    font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+    padding:6px 20px; border-radius:100px; margin-bottom:20px;
+    animation:fadeDown 0.6s ease both;
+  }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(48px,8vw,88px); line-height:1.05; color:var(--text); animation:fadeDown 0.7s ease 0.1s both; }
+  .hero h1 em { color:var(--blue-dk); font-style:italic; }
+  .hero-sub { font-size:18px; color:var(--text-lt); margin-top:16px; font-weight:300; letter-spacing:0.5px; animation:fadeDown 0.7s ease 0.2s both; }
+
+  .hero-stats { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:36px; animation:fadeDown 0.7s ease 0.3s both; }
+  .stat-pill {
+    background:white; border-radius:100px; padding:10px 22px;
+    display:flex; align-items:center; gap:8px;
+    box-shadow:0 2px 16px rgba(45,127,168,0.1); font-size:14px; font-weight:500;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .stat-pill:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(45,127,168,0.15); }
+  .stat-pill .val { font-family:'Playfair Display',serif; font-size:20px; color:var(--blue-dk); font-weight:700; }
+  .stat-pill .lbl { color:var(--text-lt); font-size:12px; }
+
+  .vitals { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-top:36px; animation:fadeDown 0.7s ease 0.4s both; }
+  .vital-card {
+    background:white; border-radius:20px; padding:20px 16px; text-align:center;
+    box-shadow:0 2px 20px rgba(45,127,168,0.07); border-top:4px solid transparent;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .vital-card:hover { transform:translateY(-4px); box-shadow:0 12px 30px rgba(45,127,168,0.12); }
+  .vital-card .vc-emoji  { font-size:28px; margin-bottom:8px; }
+  .vital-card .vc-value  { font-family:'Playfair Display',serif; font-size:22px; color:var(--text); font-weight:700; }
+  .vital-card .vc-label  { font-size:11px; color:var(--text-lt); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+  .vital-card.c1{border-top-color:var(--blue)}.vital-card.c2{border-top-color:var(--mint)}
+  .vital-card.c3{border-top-color:var(--teal)}.vital-card.c4{border-top-color:var(--sky)}
+  .vital-card.c5{border-top-color:var(--sage)}.vital-card.c6{border-top-color:var(--blue-dk)}
+
+  /* SECTION */
+  .section { margin-top:50px; animation:fadeUp 0.6s ease both; }
+  .section-title {
+    font-family:'Playfair Display',serif; font-size:28px; margin-bottom:20px;
+    display:flex; align-items:center; gap:10px; color:var(--text);
+  }
+  .section-title::after {
+    content:''; flex:1; height:1px;
+    background:linear-gradient(to right,var(--blue-dk) 0%,transparent 100%);
+    opacity:0.2; margin-left:8px;
+  }
+
+  /* PRENOM */
+  .prenom-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:10px; }
+  .prenom-bar-wrap {
+    background:white; border-radius:16px; padding:16px 14px 12px;
+    box-shadow:0 2px 12px rgba(45,127,168,0.07); transition:transform 0.2s;
+    position:relative; overflow:hidden;
+  }
+  .prenom-bar-wrap:hover { transform:translateY(-3px); }
+  .prenom-bar-wrap.winner { background:linear-gradient(135deg,var(--blue-lt),white); border:2px solid var(--blue-dk); }
+  .prenom-bar-wrap.winner::before { content:'🏆'; position:absolute; top:6px; right:8px; font-size:14px; }
+  .prenom-name  { font-size:15px; font-weight:600; margin-bottom:8px; }
+  .prenom-count { font-family:'Playfair Display',serif; font-size:28px; color:var(--blue-dk); }
+  .prenom-bar-bg   { height:4px; background:#C8E8F5; border-radius:10px; margin-top:8px; overflow:hidden; }
+  .prenom-bar-fill { height:100%; border-radius:10px; background:var(--blue); transition:width 1.2s cubic-bezier(0.16,1,0.3,1); }
+  .prenom-bar-wrap.winner .prenom-bar-fill { background:var(--blue-dk); }
+  .prenom-bar-wrap.winner .prenom-name { color:var(--blue-dk); }
+  .prenom-guessers { font-size:11px; color:var(--text-lt); margin-top:6px; line-height:1.5; }
+
+  /* CHART CARDS */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){.two-col{grid-template-columns:1fr}}
+
+  .chart-card { background:white; border-radius:24px; padding:24px; box-shadow:0 2px 20px rgba(45,127,168,0.07); }
+  .chart-card h3 { font-size:15px; font-weight:600; margin-bottom:4px; }
+  .chart-card .answer-tag {
+    display:inline-block; background:var(--blue-lt); color:var(--blue-dk);
+    font-size:11px; font-weight:600; padding:3px 10px; border-radius:100px; margin-bottom:16px;
+  }
+
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .bar-label { font-size:12px; color:var(--text-lt); width:80px; flex-shrink:0; text-align:right; }
+  .bar-track { flex:1; height:28px; background:#E4F4FA; border-radius:8px; overflow:hidden; }
+  .bar-fill {
+    height:100%; border-radius:8px; display:flex; align-items:center; padding-left:10px;
+    font-size:12px; font-weight:600; color:white;
+    transition:width 1.2s cubic-bezier(0.16,1,0.3,1); white-space:nowrap;
+  }
+  .bar-row.correct .bar-fill { background:var(--blue-dk)!important; }
+  .bar-row.correct .bar-label { font-weight:700; color:var(--blue-dk); }
+
+  .winner-tag {
+    margin-top:14px; background:var(--yellow-lt); border-radius:12px;
+    padding:10px 14px; font-size:12.5px; line-height:1.7;
+  }
+  .winner-tag .w-label { font-weight:700; color:var(--gold); margin-right:6px; }
+  .winner-tag .w-names { color:var(--text); }
+
+  /* DATE */
+  .date-grid { display:flex; flex-wrap:wrap; gap:8px; }
+  .date-chip {
+    padding:8px 14px; border-radius:100px; font-size:13px; font-weight:500;
+    background:white; box-shadow:0 2px 8px rgba(45,127,168,0.08); transition:transform 0.15s;
+  }
+  .date-chip:hover { transform:scale(1.05); }
+  .date-chip.winner { background:var(--blue-dk); color:white; font-weight:700; box-shadow:0 4px 16px rgba(45,127,168,0.3); }
+  .date-chip .count { display:inline-block; background:rgba(0,0,0,0.12); border-radius:100px; padding:1px 7px; font-size:11px; margin-left:6px; }
+  .date-chip.winner .count { background:rgba(255,255,255,0.25); }
+
+  /* RESP CARDS */
+  .response-cards { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){.response-cards{grid-template-columns:1fr}}
+  .resp-card { background:white; border-radius:24px; padding:24px; box-shadow:0 2px 20px rgba(45,127,168,0.07); }
+  .resp-card h3 { font-size:15px; font-weight:600; margin-bottom:4px; }
+  .resp-option {
+    display:flex; align-items:center; gap:12px; padding:10px 14px;
+    border-radius:14px; margin-bottom:8px; background:#F0F8FC; font-size:13px;
+  }
+  .resp-option.winner { background:var(--blue-lt); border:1.5px solid var(--blue); }
+  .resp-option .emoji { font-size:20px; flex-shrink:0; }
+  .resp-option .ro-label { flex:1; font-weight:500; }
+  .resp-option.winner .ro-label { color:var(--blue-dk); font-weight:700; }
+  .resp-option .ro-count { font-family:'Playfair Display',serif; font-size:18px; color:var(--text-lt); }
+  .resp-option.winner .ro-count { color:var(--blue-dk); }
+  .resp-option .ro-bar { width:100%; height:3px; background:#C8E8F5; border-radius:10px; overflow:hidden; margin-top:4px; }
+  .resp-option .ro-fill { height:100%; border-radius:10px; background:var(--blue); transition:width 1.2s cubic-bezier(0.16,1,0.3,1); }
+  .resp-option.winner .ro-fill { background:var(--blue-dk); }
+
+  /* DONUT */
+  .donut-section { display:flex; align-items:center; gap:24px; }
+  .donut-wrap { flex-shrink:0; }
+  .donut-legend { flex:1; }
+  .legend-item { display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:13px; }
+  .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .legend-pct { font-weight:700; margin-left:auto; font-family:'Playfair Display',serif; font-size:16px; }
+
+  /* TABLE */
+  .participants-section { margin-top:50px; }
+  .table-wrap { background:white; border-radius:24px; overflow-x:auto; box-shadow:0 2px 20px rgba(45,127,168,0.07); }
+  .table-header {
+    display:grid; grid-template-columns:1.4fr 82px 75px 60px 60px 60px 75px 50px 60px;
+    background:var(--blue-dk); color:white; font-size:10px; font-weight:600;
+    letter-spacing:0.5px; text-transform:uppercase; padding:12px 20px; min-width:700px;
+  }
+  .table-row {
+    display:grid; grid-template-columns:1.4fr 82px 75px 60px 60px 60px 75px 50px 60px;
+    padding:10px 20px; font-size:13px; align-items:center;
+    border-bottom:1px solid #E4F4FA; transition:background 0.15s; min-width:700px;
+  }
+  .table-row:hover { background:var(--blue-lt); }
+  .table-row.super-winner { background:linear-gradient(90deg,#E0F2FC,white); }
+  .table-row .name { font-weight:500; }
+  .score-badge {
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:54px; height:28px; border-radius:100px; font-weight:700; font-size:13px; padding:0 8px;
+  }
+  .score-zero { background:#EEF0F0; color:#AAA; }
+  .score-low  { background:var(--yellow-lt); color:var(--gold); }
+  .score-mid  { background:var(--sky-lt); color:var(--blue-dk); }
+  .score-high { background:var(--mint-lt); color:var(--mint-dk); }
+  .score-top  { background:var(--blue-dk); color:white; }
+  .check         { color:#27A66A; font-size:15px; font-weight:700; }
+  .check-partial { color:#F59E0B; font-size:13px; font-weight:600; }
+  .cross         { color:#C8D8E0; font-size:14px; }
+  .pts-label     { font-size:9px; color:var(--text-lt); display:block; margin-top:1px; }
+
+  .search-box {
+    width:100%; padding:12px 18px; border:2px solid #C8E8F5; border-radius:100px;
+    font-family:'DM Sans',sans-serif; font-size:14px; outline:none; margin-bottom:16px;
+    transition:border 0.2s; background:white; color:var(--text);
+  }
+  .search-box:focus { border-color:var(--blue-dk); }
+
+  /* FOOTER */
+  .footer { text-align:center; padding:60px 20px 20px; font-size:13px; color:var(--text-lt); }
+  .footer .big { font-family:'Playfair Display',serif; font-size:30px; color:var(--blue-dk); display:block; margin-bottom:8px; }
+
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:none} }
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:none} }
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="floater"></div><div class="floater"></div>
+<div class="floater"></div><div class="floater"></div>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-badge">🍀 Le grand pronostic · Résultats</div>
+    <h1>Bienvenue<br><em>Raphaël</em></h1>
+    <div class="hero-sub">Né le 12 février 2026 · Les réponses sont tombées !</div>
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="val">40</span><span class="lbl">participants</span></div>
+      <div class="stat-pill"><span class="val">5</span><span class="lbl">ont trouvé le prénom 🏆</span></div>
+      <div class="stat-pill"><span class="val">2</span><span class="lbl">ont deviné la date exacte</span></div>
+      <div class="stat-pill"><span class="val">7</span><span class="lbl">questions au total</span></div>
+    </div>
+    <div class="vitals">
+      <div class="vital-card c1"><div class="vc-emoji">⚖️</div><div class="vc-value">2,9 kg</div><div class="vc-label">Poids</div></div>
+      <div class="vital-card c2"><div class="vc-emoji">📏</div><div class="vc-value">48,5 cm</div><div class="vc-label">Taille</div></div>
+      <div class="vital-card c3"><div class="vc-emoji">👶</div><div class="vc-value">Raphaël</div><div class="vc-label">Prénom</div></div>
+      <div class="vital-card c4"><div class="vc-emoji">📅</div><div class="vc-value">12 fév.</div><div class="vc-label">Naissance</div></div>
+      <div class="vital-card c5"><div class="vc-emoji">🌿</div><div class="vc-value">Bien chevelu</div><div class="vc-label">Cheveux</div></div>
+      <div class="vital-card c6"><div class="vc-emoji">👨‍🍳</div><div class="vc-value">Grand chef</div><div class="vc-label">État de Michaël</div></div>
+    </div>
+  </div>
+
+  <div class="section reveal">
+    <div class="section-title">👶 Le prénom</div>
+    <div class="prenom-grid" id="prenom-grid"></div>
+  </div>
+
+  <div class="section reveal">
+    <div class="section-title">⚖️ Poids &amp; Taille</div>
+    <div class="two-col">
+      <div class="chart-card">
+        <h3>Poids estimé</h3>
+        <div class="answer-tag">✓ Réponse : 2,9 kg</div>
+        <div id="poids-bars"></div>
+        <div class="winner-tag" id="poids-winners"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Taille estimée</h3>
+        <div class="answer-tag">✓ Réponse : 48,5 cm</div>
+        <div id="taille-bars"></div>
+        <div class="winner-tag" id="taille-winners"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section reveal">
+    <div class="section-title">📅 Date de naissance</div>
+    <div class="chart-card">
+      <div class="answer-tag">✓ Réponse : 12 février</div>
+      <div class="date-grid" id="date-grid"></div>
+      <div class="winner-tag" id="date-winners" style="margin-top:16px"></div>
+    </div>
+  </div>
+
+  <div class="section reveal">
+    <div class="section-title">👨‍🍼 L'accouchement</div>
+    <div class="response-cards">
+      <div class="resp-card">
+        <h3>Dans quel état était Michaël ?</h3>
+        <div class="answer-tag">✓ Comme un grand chef 👨‍🍳</div>
+        <div id="michael-opts"></div>
+        <div class="winner-tag" id="michael-winners"></div>
+      </div>
+      <div class="resp-card">
+        <h3>Durée de l'accouchement ?</h3>
+        <div class="answer-tag">✓ Standard : entre 10h et 20h</div>
+        <div id="accouche-opts"></div>
+        <div class="winner-tag" id="accouche-winners"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section reveal">
+    <div class="section-title">🌿 Cheveux à la naissance</div>
+    <div class="chart-card">
+      <div class="answer-tag">✓ Bien chevelu !</div>
+      <div class="donut-section">
+        <div class="donut-wrap"><canvas id="donutCanvas" width="160" height="160"></canvas></div>
+        <div class="donut-legend" id="donut-legend"></div>
+      </div>
+      <div class="winner-tag" id="cheveux-winners" style="margin-top:16px"></div>
+    </div>
+  </div>
+
+  <div class="section reveal participants-section">
+    <div class="section-title">🏅 Classement général</div>
+    <div style="margin-bottom:12px">
+      <input class="search-box" type="text" id="search" placeholder="🔍 Chercher un participant…">
+    </div>
+    <div class="table-wrap">
+      <div class="table-header">
+        <span>Participant</span>
+        <span>Score /100</span>
+        <span title="Prénom (25 pts, ÷n²)">👶 Prénom</span>
+        <span title="Date (15 pts)">📅 Date</span>
+        <span title="Poids (20 pts)">⚖️ Poids</span>
+        <span title="Taille (20 pts)">📏 Taille</span>
+        <span title="Accouchement (10 pts)">🧺 Accouche.</span>
+        <span title="Cheveux (5 pts)">🌿 Chev.</span>
+        <span title="Michaël (5 pts)">👨‍🍳 Micha.</span>
+      </div>
+      <div id="table-body"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="big">🍀 Bienvenue dans le monde, petit Raphaël 🍀</span>
+    Merci à tous les 40 participants pour votre amour et vos paris !
+  </div>
+
+</div>
+
+<script>
+const responses = [
+  {name:"Alex Siouf",       poids:3.3,   taille:48,   prenom:"Gabriel",          date:"16/02", cheveux:"chevelu", michael:"cool",   accouche:"standard"},
+  {name:"Mamina",           poids:3.25,  taille:50,   prenom:"Ilan",             date:"16/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+  {name:"Isal-Reingewirtz", poids:2.8,   taille:47,   prenom:"Elie/Sacha",       date:"20/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+  {name:"Marc",             poids:2.95,  taille:47,   prenom:"-",                date:"15/02", cheveux:"duvet",   michael:"rouge",  accouche:"efficace"},
+  {name:"Sosso",            poids:3.1,   taille:48,   prenom:"Olivier",          date:"18/02", cheveux:"duvet",   michael:"rouge",  accouche:"direct"},
+  {name:"Futur papiM",      poids:3.2,   taille:47,   prenom:"Harry co",         date:"20/02", cheveux:"chevelu", michael:"rouge",  accouche:"efficace"},
+  {name:"Brounette",        poids:3.2,   taille:49,   prenom:"Maël",             date:"14/02", cheveux:"chevelu", michael:"rouge",  accouche:"standard"},
+  {name:"Tata cloclo",      poids:2.6,   taille:47,   prenom:"Gabriel/Raphaël/Alon/Jérémie/Jonathan", date:"16/02", cheveux:"duvet",   michael:"chef",   accouche:"efficace"},
+  {name:"Rebe",             poids:3.1,   taille:49,   prenom:"Elie",             date:"16/02", cheveux:"duvet",   michael:"pommes", accouche:"efficace"},
+  {name:"Tonton",           poids:3.2,   taille:48,   prenom:"Hazetim",          date:"13/02", cheveux:"duvet",   michael:"rouge",  accouche:"standard"},
+  {name:"Mamoun",           poids:2.9,   taille:null, prenom:"Ilan",             date:null,    cheveux:"duvet",   michael:"chef",   accouche:"efficace"},
+  {name:"Debo",             poids:3.0,   taille:50,   prenom:"Raphaël",          date:"18/02", cheveux:"chevelu", michael:"pommes", accouche:"efficace"},
+  {name:"Thomas Mechali",   poids:2.7,   taille:46,   prenom:"Adam",             date:"20/02", cheveux:"duvet",   michael:"cool",   accouche:"greve"},
+  {name:"David",            poids:3.1,   taille:48,   prenom:"Ilan",             date:"14/02", cheveux:"duvet",   michael:"cool",   accouche:"efficace"},
+  {name:"Noémie Boiton",    poids:3.25,  taille:48,   prenom:"Gabriel/Simon",    date:"16/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+  {name:"Cam",              poids:3.3,   taille:46,   prenom:"Elie/Samuel",      date:"14/02", cheveux:"duvet",   michael:"chef",   accouche:"standard"},
+  {name:"Framb",            poids:3.2,   taille:45,   prenom:"Noe",              date:"18/02", cheveux:"chevelu", michael:"cool",   accouche:"standard"},
+  {name:"Marti",            poids:3.2,   taille:48,   prenom:"Gabriel/Raphaël",  date:"17/02", cheveux:"duvet",   michael:"rouge",  accouche:"standard"},
+  {name:"Manou",            poids:3.2,   taille:51,   prenom:"Noah",             date:"15/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+  {name:"Colus",            poids:3.1,   taille:47,   prenom:"Ilan/Eden",        date:"14/02", cheveux:"duvet",   michael:"chef",   accouche:"direct"},
+  {name:"Kasra",            poids:3.5,   taille:45,   prenom:"Gabriel",          date:"27/02", cheveux:"chevelu", michael:"rouge",  accouche:"standard"},
+  {name:"Wac",              poids:3.4,   taille:47,   prenom:"Noah",             date:"12/02", cheveux:"duvet",   michael:"rouge",  accouche:"direct"},
+  {name:"Lou & Twixou",     poids:3.6,   taille:48,   prenom:"Gabriel",          date:"22/02", cheveux:"duvet",   michael:"chef",   accouche:"greve"},
+  {name:"Caroline",         poids:3.3,   taille:48,   prenom:"Adam/Nathan/Samuel/Lucas/Raphaël", date:"12/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+  {name:"Claire Siouf",     poids:3.2,   taille:48,   prenom:"Samuel",           date:"14/02", cheveux:"duvet",   michael:"rouge",  accouche:"standard"},
+  {name:"Sophie",           poids:3.1,   taille:46,   prenom:"Raphael/Aaron",    date:"25/02", cheveux:"duvet",   michael:"rouge",  accouche:"efficace"},
+  {name:"Laura Medio",      poids:3.4,   taille:52,   prenom:"Raphaël",          date:"14/02", cheveux:"duvet",   michael:"chef",   accouche:"efficace"},
+  {name:"Nadine",           poids:3.5,   taille:49,   prenom:"Jeremy/Xavier",    date:"18/02", cheveux:"duvet",   michael:"pommes", accouche:"efficace"},
+  {name:"Chloé Lellouche",  poids:3.2,   taille:50,   prenom:"Simon",            date:"15/02", cheveux:"duvet",   michael:"rouge",  accouche:"efficace"},
+  {name:"Une rose",         poids:null,  taille:null, prenom:"Mathis",           date:"20/02", cheveux:"duvet",   michael:"rouge",  accouche:"efficace"},
+  {name:"Chloé (Oscar)",    poids:3.245, taille:49,   prenom:"Raphaël",          date:"20/02", cheveux:"chevelu", michael:"rouge",  accouche:"standard"},
+  {name:"Laurence",         poids:3.4,   taille:51,   prenom:"Isaac",            date:"16/02", cheveux:"duvet",   michael:"cool",   accouche:"efficace"},
+  {name:"Anastasia",        poids:3.6,   taille:50,   prenom:"Raphaël",          date:"14/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+  {name:"Papy André",       poids:3.54,  taille:60,   prenom:"?",                date:"17/02", cheveux:"chevelu", michael:"pommes", accouche:"standard"},
+  {name:"Cindy",            poids:2.8,   taille:48,   prenom:"Simon",            date:"18/02", cheveux:"duvet",   michael:"rouge",  accouche:"standard"},
+  {name:"Camille",          poids:3.2,   taille:50,   prenom:"Clément",          date:"13/02", cheveux:"duvet",   michael:"chef",   accouche:"standard"},
+  {name:"Pierre-Marc",      poids:3.01,  taille:48,   prenom:"Gabriel",          date:"16/02", cheveux:"chevelu", michael:"rouge",  accouche:"standard"},
+  {name:"Alex le ouistiti", poids:3.6,   taille:52,   prenom:"Gabriel/Benjamin", date:"01/02", cheveux:"duvet",   michael:"rouge",  accouche:"standard"},
+  {name:"Clémentine",       poids:2.95,  taille:47,   prenom:"Isaac/Samuel",     date:"14/02", cheveux:"chevelu", michael:"rouge",  accouche:"efficace"},
+  {name:"Elisou",           poids:3.2,   taille:49,   prenom:"Gabriel",          date:"21/02", cheveux:"duvet",   michael:"cool",   accouche:"standard"},
+];
+
+const REAL = { poids:2.9, taille:48.5, date:"12/02", cheveux:"chevelu", michael:"chef", accouche:"standard" };
+
+function hasRaphael(p) { return p.toLowerCase().includes("raphaël") || p.toLowerCase().includes("raphael"); }
+function closestPoids(v)  { return v !== null && Math.abs(v - REAL.poids)  <= 0.1; }
+function closestTaille(v) { return v !== null && Math.abs(v - REAL.taille) <= 1; }
+
+function prenomScore(prenom) {
+  const list = prenom.split(/[\/,;]/).map(s=>s.trim()).filter(Boolean);
+  const nbRaphael = list.filter(s => hasRaphael(s)).length;
+  if (nbRaphael === 0) return 0;
+  return 25 / (list.length * list.length);
+}
+
+responses.forEach(r => {
+  r.pts_poids    = closestPoids(r.poids)        ? 20 : 0;
+  r.pts_taille   = closestTaille(r.taille)       ? 20 : 0;
+  r.pts_prenom   = prenomScore(r.prenom);
+  r.pts_date     = r.date     === REAL.date       ? 15 : 0;
+  r.pts_accouche = r.accouche === REAL.accouche   ? 10 : 0;
+  r.pts_cheveux  = r.cheveux  === REAL.cheveux    ?  5 : 0;
+  r.pts_michael  = r.michael  === REAL.michael    ?  5 : 0;
+  r.score = Math.round(r.pts_poids + r.pts_taille + r.pts_prenom + r.pts_date + r.pts_accouche + r.pts_cheveux + r.pts_michael);
+});
+responses.sort((a,b) => b.score - a.score);
+
+function fillWinnerTag(elId, names) {
+  const el = document.getElementById(elId);
+  if (!el || names.length === 0) return;
+  el.innerHTML = `<span class="w-label">🏆 Bonne réponse :</span><span class="w-names">${names.join(', ')}</span>`;
+}
+
+// PRENOM — extraction dynamique de tous les prénoms proposés
+const prenomCounts = {}, prenomGuessers = {};
+
+function normalizePrenom(p) {
+  return p.trim()
+    // Supprimer les emojis, parenthèses et leur contenu, points de suspension, ponctuation finale
+    .replace(/\(.*?\)/g, '')          // (mon option 2 : Raphaël) => supprimé
+    .replace(/[😇🌸💚👼🏆…\.]+/gu, '') // emojis et points de suspension
+    .trim()
+    // Normaliser les variantes de Raphaël
+    .replace(/raphael/i, "Raphaël")
+    // Capitaliser
+    .replace(/^([\wÀ-ÿ\-]+)/u, m => m.charAt(0).toUpperCase() + m.slice(1).toLowerCase());
+}
+
+responses.forEach(r => {
+  // Sépare sur / , ; et … (y compris collés à un mot)
+  const parts = r.prenom
+    .split(/[\/,;…]/)
+    .map(s => normalizePrenom(s))
+    .filter(s => s.length > 1 && s !== "?" && !/^\d+$/.test(s));
+
+  parts.forEach(p => {
+    prenomCounts[p]   = (prenomCounts[p]   || 0) + 1;
+    prenomGuessers[p] = (prenomGuessers[p] || []);
+    prenomGuessers[p].push(r.name);
+  });
+});
+const sortedPrenoms = Object.entries(prenomCounts).sort((a,b)=>b[1]-a[1]);
+const maxP = sortedPrenoms[0][1];
+const grid = document.getElementById('prenom-grid');
+sortedPrenoms.forEach(([name, count]) => {
+  const isWin = name === "Raphaël";
+  const div = document.createElement('div');
+  div.className = 'prenom-bar-wrap' + (isWin ? ' winner' : '');
+  div.innerHTML = `
+    <div class="prenom-name">${name}</div>
+    <div class="prenom-count">${count}</div>
+    <div class="prenom-bar-bg"><div class="prenom-bar-fill" style="width:0%" data-w="${Math.round(count/maxP*100)}%"></div></div>
+    <div class="prenom-guessers">${(prenomGuessers[name]||[]).join(', ')}</div>`;
+  grid.appendChild(div);
+});
+
+// POIDS
+const poidsBuckets = [
+  {label:"< 2,8 kg",   min:0,   max:2.8, correct:false},
+  {label:"2,8–3,0 kg", min:2.8, max:3.0, correct:true},
+  {label:"3,0–3,3 kg", min:3.0, max:3.3, correct:false},
+  {label:"3,3–3,5 kg", min:3.3, max:3.5, correct:false},
+  {label:"> 3,5 kg",   min:3.5, max:99,  correct:false},
+];
+poidsBuckets.forEach(b => {
+  const count = responses.filter(r => r.poids!==null && r.poids>=b.min && r.poids<b.max).length;
+  const row = document.createElement('div');
+  row.className = 'bar-row' + (b.correct ? ' correct' : '');
+  row.innerHTML = `<div class="bar-label">${b.label}</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:${b.correct?'':'#82C9A5'}" data-w="${Math.round(count/18*100)}%">${count} pers.</div></div>`;
+  document.getElementById('poids-bars').appendChild(row);
+});
+fillWinnerTag('poids-winners', responses.filter(r=>r.pts_poids>0).map(r=>r.name));
+
+// TAILLE
+const tailleBuckets = [
+  {label:"< 46 cm",  min:0,  max:46, correct:false},
+  {label:"46–47 cm", min:46, max:48, correct:false},
+  {label:"48–49 cm", min:48, max:50, correct:true},
+  {label:"50–51 cm", min:50, max:52, correct:false},
+  {label:"> 51 cm",  min:52, max:99, correct:false},
+];
+tailleBuckets.forEach(b => {
+  const count = responses.filter(r => r.taille!==null && r.taille>=b.min && r.taille<b.max).length;
+  const row = document.createElement('div');
+  row.className = 'bar-row' + (b.correct ? ' correct' : '');
+  row.innerHTML = `<div class="bar-label">${b.label}</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:${b.correct?'':'#7BB8D4'}" data-w="${Math.round(count/18*100)}%">${count} pers.</div></div>`;
+  document.getElementById('taille-bars').appendChild(row);
+});
+fillWinnerTag('taille-winners', responses.filter(r=>r.pts_taille>0).map(r=>r.name));
+
+// DATE
+const dateCounts = {};
+responses.forEach(r => { if(r.date) dateCounts[r.date]=(dateCounts[r.date]||0)+1; });
+Object.entries(dateCounts).sort((a,b)=>parseInt(a[0])-parseInt(b[0])).forEach(([date,count]) => {
+  const chip = document.createElement('div');
+  chip.className = 'date-chip' + (date===REAL.date ? ' winner' : '');
+  chip.innerHTML = `${date}<span class="count">${count}</span>`;
+  document.getElementById('date-grid').appendChild(chip);
+});
+fillWinnerTag('date-winners', responses.filter(r=>r.pts_date>0).map(r=>r.name));
+
+// MICHAEL
+[
+  {key:"chef",   emoji:"👨‍🍳", label:"Grand chef (directif, contrôle)", correct:true},
+  {key:"cool",   emoji:"🥒", label:"Cool as a cucumber",                 correct:false},
+  {key:"rouge",  emoji:"🍅", label:"Rouge tomate (émotif)",              correct:false},
+  {key:"pommes", emoji:"😵", label:"Dans les pommes",                    correct:false},
+].forEach(o => {
+  const count = responses.filter(r=>r.michael===o.key).length;
+  const div = document.createElement('div');
+  div.className = 'resp-option' + (o.correct ? ' winner' : '');
+  div.innerHTML = `<span class="emoji">${o.emoji}</span><div style="flex:1"><div class="ro-label">${o.label}</div><div class="ro-bar"><div class="ro-fill" style="width:0%" data-w="${Math.round(count/responses.length*100)}%"></div></div></div><span class="ro-count">${count}</span>`;
+  document.getElementById('michael-opts').appendChild(div);
+});
+fillWinnerTag('michael-winners', responses.filter(r=>r.pts_michael>0).map(r=>r.name));
+
+// ACCOUCHEMENT
+[
+  {key:"direct",   emoji:"⚡", label:"Direct producteur < 5h",       correct:false},
+  {key:"efficace", emoji:"✅", label:"Efficace : 5–10h",              correct:false},
+  {key:"standard", emoji:"🕐", label:"Standard : 10–20h",             correct:true},
+  {key:"greve",    emoji:"🚜", label:"Grève des agriculteurs > 20h",  correct:false},
+].forEach(o => {
+  const count = responses.filter(r=>r.accouche===o.key).length;
+  const div = document.createElement('div');
+  div.className = 'resp-option' + (o.correct ? ' winner' : '');
+  div.innerHTML = `<span class="emoji">${o.emoji}</span><div style="flex:1"><div class="ro-label">${o.label}</div><div class="ro-bar"><div class="ro-fill" style="width:0%" data-w="${Math.round(count/responses.length*100)}%"></div></div></div><span class="ro-count">${count}</span>`;
+  document.getElementById('accouche-opts').appendChild(div);
+});
+fillWinnerTag('accouche-winners', responses.filter(r=>r.pts_accouche>0).map(r=>r.name));
+
+// CHEVEUX DONUT
+const chevCounts = {
+  "Bien chevelu 🌿": responses.filter(r=>r.cheveux==="chevelu").length,
+  "Petit duvet 🍑":  responses.filter(r=>r.cheveux==="duvet").length,
+};
+const chevColors = ["#2D7FA8","#82C9A5"];
+const cvs = document.getElementById('donutCanvas');
+const ctx = cvs.getContext('2d');
+const total = Object.values(chevCounts).reduce((a,b)=>a+b,0);
+let sa = -Math.PI/2;
+Object.entries(chevCounts).forEach(([,count],i) => {
+  const angle = (count/total)*Math.PI*2;
+  ctx.beginPath(); ctx.moveTo(80,80);
+  ctx.arc(80,80,70,sa,sa+angle); ctx.closePath();
+  ctx.fillStyle=chevColors[i]; ctx.fill(); sa+=angle;
+});
+ctx.beginPath(); ctx.arc(80,80,42,0,Math.PI*2); ctx.fillStyle='white'; ctx.fill();
+ctx.font='bold 18px serif'; ctx.fillStyle='#2D7FA8'; ctx.textAlign='center';
+ctx.fillText(`${Math.round(chevCounts["Bien chevelu 🌿"]/total*100)}%`,80,87);
+Object.entries(chevCounts).forEach(([label,count],i) => {
+  const item = document.createElement('div');
+  item.className='legend-item';
+  item.innerHTML=`<div class="legend-dot" style="background:${chevColors[i]}"></div><span>${label}</span><span class="legend-pct">${count}</span>`;
+  document.getElementById('donut-legend').appendChild(item);
+});
+fillWinnerTag('cheveux-winners', responses.filter(r=>r.pts_cheveux>0).map(r=>r.name));
+
+// TABLE
+function scoreBadgeClass(s) {
+  if(s===0) return 'score-zero'; if(s<25) return 'score-low';
+  if(s<50) return 'score-mid';   if(s<75) return 'score-high';
+  return 'score-top';
+}
+function cellPrenom(r) {
+  if(r.pts_prenom===0) return `<span class="cross">✗</span>`;
+  if(r.pts_prenom===25) return `<span class="check">✓</span><span class="pts-label">25 pts</span>`;
+  return `<span class="check-partial">~</span><span class="pts-label">${r.pts_prenom.toFixed(1)} pts</span>`;
+}
+function cellCheck(pts,max) {
+  return pts>=max ? `<span class="check">✓</span><span class="pts-label">${max} pts</span>` : `<span class="cross">✗</span>`;
+}
+function renderTable(filter='') {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML='';
+  responses.filter(r=>r.name.toLowerCase().includes(filter.toLowerCase())).forEach(r => {
+    const rank = responses.indexOf(r)+1;
+    const row = document.createElement('div');
+    row.className = 'table-row' + (r.score>=55?' super-winner':'');
+    row.innerHTML = `
+      <div class="name">${rank<=3?['🥇','🥈','🥉'][rank-1]+' ':''}${r.name}</div>
+      <div><span class="score-badge ${scoreBadgeClass(r.score)}">${r.score}/100</span></div>
+      <div>${cellPrenom(r)}</div>
+      <div>${cellCheck(r.pts_date,15)}</div>
+      <div>${cellCheck(r.pts_poids,20)}</div>
+      <div>${cellCheck(r.pts_taille,20)}</div>
+      <div>${cellCheck(r.pts_accouche,10)}</div>
+      <div>${cellCheck(r.pts_cheveux,5)}</div>
+      <div>${cellCheck(r.pts_michael,5)}</div>`;
+    tbody.appendChild(row);
+  });
+}
+renderTable();
+document.getElementById('search').addEventListener('input',e=>renderTable(e.target.value));
+
+// ANIMATIONS
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('[data-w]').forEach(el=>setTimeout(()=>{el.style.width=el.dataset.w;},100));
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+setTimeout(()=>{document.querySelectorAll('.prenom-bar-fill').forEach(el=>{el.style.width=el.dataset.w;});},400);
+</script>
+</body>
+</html>
